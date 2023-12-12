@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Liste des Employés et de Leurs Machines"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>
+                <p:dataTable var="employe" value="#{employeController.items}">
+                    <!-- Colonne pour le nom de l'employé -->
+                    <p:column>
+                        <f:facet name="header">Nom de l'Employé</f:facet>
+                        <h:outputText value="#{employe.nom}" />
+                    </p:column>
+
+                    <!-- Colonne pour la liste des machines de l'employé -->
+                    <p:column>
+                        <f:facet name="header">Machines de l'Employé</f:facet>
+                        <p:dataTable var="machine" value="#{machineController.getMachinesByEmployee(employe)}">
+
+                            <p:column headerText="Marque">
+                                <h:outputText value="#{machine.marque}" />
+                            </p:column>
+                            <!-- Ajoutez d'autres colonnes pour les autres propriétés de la machine -->
+                        </p:dataTable>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
